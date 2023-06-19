@@ -6,7 +6,7 @@
 #    By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/10 13:23:41 by bhung-yi          #+#    #+#              #
-#    Updated: 2023/06/10 13:25:28 by bhung-yi         ###   ########.fr        #
+#    Updated: 2023/06/18 16:26:10 by bhung-yi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,9 @@ CC			= gcc
 FLAGS		= -Wall -Werror -Wextra
 RM			= /bin/rm -f
 
-SRCS	= 	./srcs/ft_utils.c \
-			./srcs/ft_utils.c \
+SRCS	= 	./srcs/utils.c \
+			./srcs/actions.c \
+			./srcs/av_init.c \
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror -c $< -o $@

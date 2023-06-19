@@ -1,42 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   av_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 13:27:09 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/18 16:36:32 by bhung-yi         ###   ########.fr       */
+/*   Created: 2023/06/18 13:53:21 by bhung-yi          #+#    #+#             */
+/*   Updated: 2023/06/18 16:06:12 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philo.h"
+#include "../philo.h"
 
-int	num = 0;
-pthread_mutex_t	mutex;
-
-void	*function()
+void    av_init(int ac, char **av, t_data *data)
 {
-	for (int i = 0; i < 10; i++)
-	{
-		pthread_mutex_lock(&mutex);
-		num++;
-		pthread_mutex_unlock(&mutex);
-	}
-	return (NULL);
-}
-
-int	main(int ac, char **av)
-{
-	t_data	data;
-	time_t		t;
-	
-	t = time(NULL);
-	av_init(ac, av, &data);
-	eating(1, &data);
-	thinking(1, &data);
-	sleeping(1, &data);
-	thinking(1, &data);
-
-	return (0);
+    if (ac != 5)
+    {
+        printf("Error: Invalid number of arguments\n");
+        exit(1);
+    }
+    data->number_of_philosophers = ft_atoi(av[1]);
+    data->time_to_die = ft_atoi(av[2]);
+    data->time_to_eat = ft_atoi(av[3]);
+    data->time_to_sleep = ft_atoi(av[4]);
+	data->start_time = current_time();
 }
