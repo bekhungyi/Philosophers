@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:50:16 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/18 16:07:59 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/06/25 17:53:44 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,5 @@ void	print_log(int id, char *str, t_data *data)
 	long long	t;
 
 	t = (current_time() - data->start_time);
-	printf("%lldms: Philo %d %s\n", t, id, str);
+	printf("%*lldms: Philo %d %s\n", 6, t, id, str);
 }

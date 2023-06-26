@@ -6,7 +6,7 @@
 #    By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/10 13:23:41 by bhung-yi          #+#    #+#              #
-#    Updated: 2023/06/18 16:26:10 by bhung-yi         ###   ########.fr        #
+#    Updated: 2023/06/25 18:00:17 by bhung-yi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ RM			= /bin/rm -f
 
 SRCS	= 	./srcs/utils.c \
 			./srcs/actions.c \
-			./srcs/av_init.c \
+			./srcs/init.c \
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror -c $< -o $@
