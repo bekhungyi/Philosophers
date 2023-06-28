@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 15:01:31 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/25 16:46:51 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/06/28 19:13:53 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,17 @@ int	take_fork(int id, t_data *data)
 
 int	eating(int id, t_data *data)
 {
-	print_log(id, "is eating.", data);
+	if (pthread_mutex_lock(data->philo[id].l_fork) != 0)
+		return (0);
+	if (print_log(id, "has taken a fork", data) == 0)
+		return (0);
+	if (pthread_mutex_lock(data->philo[id].r_fork) != 0)
+		return (0);
+	if (print_log(id, "has taken a fork", data) == 0)
+		return (0);
+	if (print_log(id, "is eating", data) == 0)
+		return (0);
+	// print_log(id, "is eating.", data);
 	usleep(data->time_to_eat * 1000);
 	return (1);
 }
