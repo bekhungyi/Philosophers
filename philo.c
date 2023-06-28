@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:27:09 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/28 19:19:19 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/06/28 20:33:54 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,13 @@ int	main(int ac, char **av)
     }
 	t = time(NULL);
 	if (!data_init(ac, av, &data))
-		return (0);
-	if (data.nb_of_philo == 1)
-		return(one_philo(&data));
-	if (thread_init(&data))
-		return (1);
-	// return(ft_exit(&data));
-	return (0);
+        return (0);
+    printf("Data initialized successfully.\n");
+    fork_init(&data); // Initialize forks
+    philo_init(ac, av, &data); // Initialize philosophers
+    if (data.nb_of_philo == 1)
+        return (one_philo(&data));
+    if (thread_init(&data))
+        return (1);
+    return (0);
 }

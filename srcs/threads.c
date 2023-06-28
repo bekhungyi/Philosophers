@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:27:42 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/28 19:19:02 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/06/28 20:37:18 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,22 @@ void	*checker(void *philo_ptr)
 	return ((void *)0);
 }
 
-void    *routine(void *philo_ptr)
-{
-    int i;
-    t_philo *philo;
+void *routine(void *philo_ptr) {
+    t_philo *philo = (t_philo *)philo_ptr;
 
-    i = 0;
-    philo = (t_philo *) philo_ptr;
-    while (philo->data->dead == 0)
-	{
-		eating(philo->id, philo->data);
-		thinking(philo->id, philo->data);
-	}
-    if (pthread_join(philo->t1, NULL))
-	    return ((void *)1);
-	return ((void *)0);
+    while (philo->data->dead == 0) {
+        int id = philo->id;  // Get the philosopher ID
+        printf("Philosopher %d is alive.\n", id);  // Print the philosopher ID
+        eating(id, philo->data);  // Pass the philosopher ID to the eating function
+        thinking(id, philo->data);  // Pass the philosopher ID to the thinking function
+    }
+
+    int id = philo->id;  // Get the philosopher ID
+    printf("Philosopher %d has died.\n", id);  // Print the philosopher ID
+    if (pthread_join(philo->data->tid[0], NULL) != 0) {
+        return (void *)1;
+    }
+    return (void *)0;
 }
 
 int	thread_init(t_data *data)
@@ -60,9 +61,13 @@ int	thread_init(t_data *data)
 	}
     while (++i < data->nb_of_philo)
 	{
-		if (pthread_create(&t, NULL, &routine, &data->philo[i]))
+		if (pthread_create(&data->tid[i], NULL, &routine, &data->philo[i]))
+        {
+            printf("Error creating thread for philosopher %d.\n", i);
 			return (0);
+        }
 		usleep(1);
 	}
+    printf("All philosopher threads created successfully.\n");
     return (1);
 }

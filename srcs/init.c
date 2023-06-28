@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:53:21 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/28 18:58:42 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/06/28 20:33:52 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ void	fork_init(t_data *data)
 
 	i = 0;
 	data->fork = malloc(sizeof(pthread_mutex_t) * data->nb_of_philo);
-	while (i++ < data->nb_of_philo)
+	while (i < data->nb_of_philo)
+	{
 		pthread_mutex_init(&data->fork[i], NULL);
+		i++;
+	}
 	i = 0;
 	data->philo[0].l_fork = &data->fork[0];
 	data->philo[0].r_fork = &data->fork[data->nb_of_philo - 1];
@@ -38,11 +41,14 @@ void	philo_init(int ac, char **av, t_data *data)
 	data->philo = malloc(sizeof(t_philo) * data->nb_of_philo);
 	if (!data->philo)
 		return ;
-	while (i++ < data->nb_of_philo)
+	while (i < data->nb_of_philo)
 	{
 		data->philo[i].id = i;
+		printf("Philosopher %d initialized.\n", data->philo[i].id);
 		data->philo[i].eat_count = 0;
+		i++;
 	}
+	printf("Total philosophers initialized: %d\n", i);
 }
 
 int	data_init(int ac, char **av, t_data *data)
@@ -61,5 +67,6 @@ int	data_init(int ac, char **av, t_data *data)
 		printf ("Error: Invalid arguments found.");
 		return (0);
 	}
+	printf("Number of philosophers: %d\n", data->nb_of_philo);
 	return (1);
 }

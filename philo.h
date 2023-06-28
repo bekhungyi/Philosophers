@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:25:58 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/28 19:20:22 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/06/28 19:39:53 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	t_philo		*philo;
+	pthread_t	*tid;
 	long long	start_time;
     int			nb_of_philo;
 	int			number_of_forks;
