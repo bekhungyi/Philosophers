@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:25:58 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/28 19:39:53 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:26:33 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,43 +28,45 @@ typedef struct s_philo
 	struct s_data	*data;
 	int				id;
 	int				eat_count;
-	int				last_meal;
+	int				last_eat;
+	int				lifetime;
+	pthread_t		dead_t;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	lock;
-	pthread_t	t1;
 }	t_philo;
 
 typedef struct s_data
 {
-	t_philo		*philo;
-	pthread_t	*tid;
-	long long	start_time;
-    int			nb_of_philo;
-	int			number_of_forks;
-	int			time_to_die;
-	int			time_to_eat;
-	int			time_to_sleep;
-    int			nb_of_meal;
-	int			dead;
-	int			done_eating;
-	pthread_mutex_t	write;
+	t_philo			*philo;
+	long long		start_time;
+    int				nb_of_philo;
+	int				nb_of_fork;
+    int				nb_of_meal;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				finish_meal;
+	int				dead;
+	pthread_t		*tid;
 	pthread_mutex_t	*fork;
+	pthread_mutex_t	write;
+	pthread_mutex_t	lock;
 }	t_data;
 
 int		ft_atoi(char *str);
 int		data_init(int ac, char **av, t_data *data);
-void	philo_init(int ac, char **av, t_data *data);
+void	philo_init(t_data *data);
 void	fork_init(t_data *data);
 int		thread_init(t_data *data);
 
-int	print_log(int id, char *str, t_data *data);
+void	print_log(int id, char *str, t_data *data);
 long long	current_time();
 
 /****	Actions	****/
 int	die(int id, t_data *data);
 int	take_fork(int id, t_data *data);
-int	eating(int id, t_data *data);
+int	eating(t_philo *philo);
 int	thinking(int id, t_data *data);
 int	sleeping(int id, t_data *data);
 

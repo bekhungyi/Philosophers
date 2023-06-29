@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:50:16 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/28 20:34:02 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:19:00 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ long long	current_time()
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
 
-int print_log(int id, char *str, t_data *data) {
+void print_log(int id, char *str, t_data *data) {
     long long t;
 
     pthread_mutex_lock(&data->write);
@@ -59,5 +59,4 @@ int print_log(int id, char *str, t_data *data) {
     if (!data->dead)
         printf("%*lldms: Philo %d %s\n", 6, t, id + 1, str); // Add +1 to the id to print the index
     pthread_mutex_unlock(&data->write);
-    return 1;
 }
