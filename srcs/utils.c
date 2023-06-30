@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:50:16 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/29 19:19:00 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:50:45 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_strcmp(char *s1, char *s2)
 int	ft_atoi(char *str)
 {
 	int			i;
-	long int	n;
+	long long	n;
 
 	i = 0;
 	n = 0;
@@ -53,10 +53,10 @@ void print_log(int id, char *str, t_data *data) {
     pthread_mutex_lock(&data->write);
     t = (current_time() - data->start_time);
     if (ft_strcmp(str, "is dead.") == 0 && data->dead == 0) {
-        printf("%*lldms: Philo %d %s\n", 6, t, id + 1, str); // Add +1 to the id to print the index
-        data->dead = 1;
+        printf("%*lldms: Philo %d %s\n", 6, t, id, str);
+        data->philo->data->dead = 1;
     }
     if (!data->dead)
-        printf("%*lldms: Philo %d %s\n", 6, t, id + 1, str); // Add +1 to the id to print the index
+        printf("%*lldms: Philo %d %s\n", 6, t, id, str);
     pthread_mutex_unlock(&data->write);
 }

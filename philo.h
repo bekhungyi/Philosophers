@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:25:58 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/29 19:26:33 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:58:12 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ typedef struct s_philo
 	struct s_data	*data;
 	int				id;
 	int				eat_count;
-	int				last_eat;
-	int				lifetime;
+	long long		lifetime;
 	pthread_t		dead_t;
 	pthread_mutex_t	*l_fork;
 	pthread_mutex_t	*r_fork;
@@ -66,8 +65,8 @@ long long	current_time();
 /****	Actions	****/
 int	die(int id, t_data *data);
 int	take_fork(int id, t_data *data);
-int	eating(t_philo *philo);
+void	eating(t_philo *philo);
 int	thinking(int id, t_data *data);
-int	sleeping(int id, t_data *data);
+void	sleeping(int id, t_data *data);
 
 # endif
