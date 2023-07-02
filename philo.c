@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:27:09 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/29 19:16:30 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/02 19:10:12 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,17 @@ void	ft_exit(t_data *data)
     free(data->tid);
 }
 
-// int	one_philo(t_data *data)
-// {
-// 	eating(1, data);
-// 	usleep(data->time_to_die * 1000);
-// 	die(1, data);
-//     ft_exit(data);
-// 	return (0);
-// }
+int	one_philo(t_data *data)
+{
+    t_philo *philo;
+
+    philo = &data->philo[0];
+    print_log("has taken a fork", philo);
+	usleep(data->time_to_die * 1000);
+    print_log("is dead", philo);
+    ft_exit(data);
+	return (0);
+}
 
 int	main(int ac, char **av)
 {
@@ -49,8 +52,8 @@ int	main(int ac, char **av)
     }
 	if (data_init(ac, av, &data))
         return (1);
-    // if (data.nb_of_philo == 1)
-    //     return (one_philo(&data));
+    if (data.nb_of_philo == 1)
+        return (one_philo(&data));
     if (thread_init(&data))
         return (1);
     return (0);

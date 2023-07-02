@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:50:16 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/30 16:50:45 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/02 19:45:25 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,17 @@ long long	current_time()
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
 
-void print_log(int id, char *str, t_data *data) {
+void print_log(char *str, t_philo *philo)
+{
     long long t;
 
-    pthread_mutex_lock(&data->write);
-    t = (current_time() - data->start_time);
-    if (ft_strcmp(str, "is dead.") == 0 && data->dead == 0) {
-        printf("%*lldms: Philo %d %s\n", 6, t, id, str);
-        data->philo->data->dead = 1;
+    t = current_time() - philo->data->start_time;
+    pthread_mutex_lock(&philo->data->write);
+    if (ft_strcmp(str, "is dead.") == 0 && philo->data->dead == 0) {
+        printf("%*lldms: Philo %d %s\n", 6, t, philo->id, str);
+        philo->data->dead = 1;
     }
-    if (!data->dead)
-        printf("%*lldms: Philo %d %s\n", 6, t, id, str);
-    pthread_mutex_unlock(&data->write);
+    if (!philo->data->dead)
+        printf("%*lldms: Philo %d %s\n", 6, t, philo->id, str);
+    pthread_mutex_unlock(&philo->data->write);
 }

@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:27:42 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/06/30 16:54:32 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/02 19:51:48 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*check_dead(void *philo_ptr)
 	{
 		pthread_mutex_lock(&philo->lock);
 		if (current_time() >= philo->lifetime)
-			print_log(philo->id, "is dead.", philo->data);
+			print_log("is dead.", philo);
 		if (philo->eat_count == philo->data->nb_of_meal)
 		{
 			pthread_mutex_lock(&philo->data->lock);
@@ -55,12 +55,12 @@ void	*routine(void *philo_ptr)
 
 	philo = (t_philo *) philo_ptr;
 	philo->lifetime = current_time() + philo->data->time_to_die;
-	if (pthread_create(&philo->dead_t, NULL, &check_dead, (void *)philo))
+	if (pthread_create(&philo->dead_t, NULL, &check_dead, (void *)philo) != 0)
 		return ((void *)1);
 	while (philo->data->dead == 0)
 	{
 		eating(philo);
-		print_log(philo->id, "is thinking.", philo->data);
+		print_log("is thinking.", philo);
 	}
 	if (pthread_join(philo->dead_t, NULL))
 		return ((void *)1);
@@ -80,7 +80,7 @@ int	thread_init(t_data *data)
 	i = 0;
     while (i < data->nb_of_philo)
 	{
-		if (pthread_create(&data->tid[i], NULL, &routine, &data->philo[i]))
+		if (pthread_create(&data->tid[i], NULL, &routine, &data->philo[i]) != 0)
 			return (1);
 		i++;
 		usleep(1);
