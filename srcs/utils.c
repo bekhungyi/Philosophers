@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:50:16 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/02 19:45:25 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/03 00:49:44 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ int	ft_strcmp(char *s1, char *s2)
 	int	i;
 
 	i = 0;
-	while (s1[i] && s1[i] == s2[i])
+	while (s1[i] && (s1[i] == s2[i]))
 		i++;
-	return (*(char *)s1 - *(char *)s2);
+	return (s1[i] - s2[i]);
 }
 
 int	ft_atoi(char *str)
 {
 	int			i;
-	long long	n;
+	long int	n;
 
 	i = 0;
 	n = 0;
@@ -47,15 +47,18 @@ long long	current_time()
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
 
-void print_log(char *str, t_philo *philo)
+void	print_log(char *str, t_philo *philo)
 {
     long long t;
 
-    t = current_time() - philo->data->start_time;
     pthread_mutex_lock(&philo->data->write);
-    if (ft_strcmp(str, "is dead.") == 0 && philo->data->dead == 0) {
+    t = current_time() - philo->data->start_time;
+    if (ft_strcmp("is dead", str) == 0 && philo->data->dead == 0)
+	{
         printf("%*lldms: Philo %d %s\n", 6, t, philo->id, str);
+		pthread_mutex_lock(&philo->data->lock);
         philo->data->dead = 1;
+		pthread_mutex_unlock(&philo->data->lock);
     }
     if (!philo->data->dead)
         printf("%*lldms: Philo %d %s\n", 6, t, philo->id, str);

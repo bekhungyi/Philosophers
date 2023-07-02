@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:27:09 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/02 19:10:12 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/02 23:55:17 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,6 @@ int	main(int ac, char **av)
         return (one_philo(&data));
     if (thread_init(&data))
         return (1);
+    ft_exit(&data);
     return (0);
 }

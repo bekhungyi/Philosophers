@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:53:21 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/02 19:50:26 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/03 00:55:45 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	philo_init(t_data *data)
 	{
 		data->philo[i].data = data;
 		data->philo[i].id = i + 1;
-		data->philo[i].eat_count = 0;
+		data->philo->eat_count = 0;
 		data->philo[i].lifetime = data->time_to_die + data->start_time;
 		pthread_mutex_init(&data->philo[i].lock, NULL);
 		i++;
@@ -63,7 +63,7 @@ int	data_init(int ac, char **av, t_data *data)
 	data->time_to_die = ft_atoi(av[2]);
 	data->time_to_eat = ft_atoi(av[3]);
 	data->time_to_sleep = ft_atoi(av[4]);
-	data->nb_of_meal = -1;
+	data->nb_of_meal = 0;
 	data->finish_meal = 0;
 	data->dead = 0;
 	if (ac == 6)
