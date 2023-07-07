@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:27:09 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/02 23:55:17 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/07 23:49:01 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	ft_exit(t_data *data)
         i++;
 	}
 	pthread_mutex_destroy(&data->write);
+	pthread_mutex_destroy(&data->lock);
     free(data->fork);
     free(data->philo);
     free(data->tid);
@@ -54,8 +55,11 @@ int	main(int ac, char **av)
         return (1);
     if (data.nb_of_philo == 1)
         return (one_philo(&data));
+    printf("Philo is running...\n");
     if (thread_init(&data))
+    {
         return (1);
+    }
     ft_exit(&data);
     return (0);
 }

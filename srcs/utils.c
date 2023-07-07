@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:50:16 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/03 00:49:44 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/07 23:58:24 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ long long	current_time()
 	struct timeval	t;
 
 	gettimeofday(&t, NULL);
-	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
+	return ((t.tv_sec * (long long)1000) + (t.tv_usec / 1000));
 }
 
 void	print_log(char *str, t_philo *philo)
@@ -53,7 +53,7 @@ void	print_log(char *str, t_philo *philo)
 
     pthread_mutex_lock(&philo->data->write);
     t = current_time() - philo->data->start_time;
-    if (ft_strcmp("is dead", str) == 0 && philo->data->dead == 0)
+    if (ft_strcmp("died", str) == 0 && philo->data->dead == 0)
 	{
         printf("%*lldms: Philo %d %s\n", 6, t, philo->id, str);
 		pthread_mutex_lock(&philo->data->lock);

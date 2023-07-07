@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 17:27:42 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/03 00:57:41 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/08 01:07:00 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*check_dead(void *philo_ptr)
 	{
 		pthread_mutex_lock(&philo->lock);
 		if (current_time() >= philo->lifetime && philo->eating == 0)
-			print_log("is dead", philo);
+			print_log("died", philo);
 		if (philo->eat_count == philo->data->nb_of_meal)
 		{
 			pthread_mutex_lock(&philo->data->lock);
@@ -59,7 +59,7 @@ void	*routine(void *philo_ptr)
 	while (philo->data->dead == 0)
 	{
 		eating(philo);
-		print_log("is thinking.", philo);
+		print_log("is thinking", philo);
 	}
 	if (pthread_join(philo->dead_t, NULL))
 		return ((void *)1);

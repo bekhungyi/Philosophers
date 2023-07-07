@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:53:21 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/03 00:55:45 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/08 01:03:07 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ void	philo_init(t_data *data)
 		return ;
 	while (i < data->nb_of_philo)
 	{
+		data->philo->data = data;
 		data->philo[i].data = data;
 		data->philo[i].id = i + 1;
 		data->philo->eat_count = 0;
+		data->philo->eating = 0;
 		data->philo[i].lifetime = data->time_to_die + data->start_time;
 		pthread_mutex_init(&data->philo[i].lock, NULL);
 		i++;
@@ -72,6 +74,7 @@ int	data_init(int ac, char **av, t_data *data)
 	if (!data->tid)
 		return (1);
 	pthread_mutex_init(&data->write, NULL);
+	pthread_mutex_init(&data->lock, NULL);
     philo_init(data);
 	return (0);
 }
