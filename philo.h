@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:25:58 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/02 19:50:29 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/03 00:08:39 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_philo
 	struct s_data	*data;
 	int				id;
 	int				eat_count;
+	int				eating;
 	long long		lifetime;
 	pthread_t		dead_t;
 	pthread_mutex_t	*l_fork;

@@ -6,7 +6,7 @@
 #    By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/10 13:23:41 by bhung-yi          #+#    #+#              #
-#    Updated: 2023/06/29 16:50:09 by bhung-yi         ###   ########.fr        #
+#    Updated: 2023/07/07 23:09:15 by bhung-yi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS	= 	./srcs/utils.c \
 all: $(NAME)
 
 $(NAME):
-	$(CC) $(CFLAGS) philo.c $(SRCS) -o $(NAME)
+	$(CC) $(CFLAGS) philo.c $(SRCS) -o $(NAME) -fsanitize=address
 
 re: fclean all
 
@@ -36,5 +36,3 @@ clean:
 fclean: clean
 	$(RM) $(NAME)
 
-
-# -fsanitize=address
