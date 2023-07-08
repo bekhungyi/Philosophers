@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 13:50:16 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/07 23:58:24 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/09 00:41:13 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,40 @@ long long	current_time()
 	return ((t.tv_sec * (long long)1000) + (t.tv_usec / 1000));
 }
 
-void	print_log(char *str, t_philo *philo)
+/*void	print_log(char *str, t_philo *philo)
 {
     long long t;
 
     pthread_mutex_lock(&philo->data->write);
     t = current_time() - philo->data->start_time;
-    if (ft_strcmp("died", str) == 0 && philo->data->dead == 0)
+
+	pthread_mutex_lock(&philo->data->lock);
+	int dead_flag = philo->data->dead;  // Read the value atomically
+
+    if (ft_strcmp("died", str) == 0 && dead_flag == 0)
 	{
-        printf("%*lldms: Philo %d %s\n", 6, t, philo->id, str);
-		pthread_mutex_lock(&philo->data->lock);
-        philo->data->dead = 1;
-		pthread_mutex_unlock(&philo->data->lock);
-    }
+		printf("%lldms: Philo %d %s\n", t, philo->id, str);
+		philo->data->dead = 1;
+	}
+	pthread_mutex_unlock(&philo->data->lock);
+	
     if (!philo->data->dead)
-        printf("%*lldms: Philo %d %s\n", 6, t, philo->id, str);
+        printf("%lldms: Philo %d %s\n", t, philo->id, str);
     pthread_mutex_unlock(&philo->data->write);
+}*/
+
+void	print_log(char *str, t_philo *philo)
+{
+	u_int64_t	time;
+
+	pthread_mutex_lock(&philo->data->write);
+	time = current_time() - philo->data->start_time;
+	if (ft_strcmp("died", str) == 0 && philo->data->dead == 0)
+	{
+		printf("%llu %d %s\n", time, philo->id, str);
+		philo->data->dead = 1;
+	}
+	if (!philo->data->dead)
+		printf("%llu %d %s\n", time, philo->id, str);
+	pthread_mutex_unlock(&philo->data->write);
 }
