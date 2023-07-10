@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:27:09 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/08 15:10:35 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:22:39 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	one_philo(t_data *data)
     pthread_mutex_lock(&data->fork[0]);
     print_log("has taken a fork", philo);
 	usleep(data->time_to_die * 1000);
-    print_log("is dead", philo);
+    print_log("died", philo);
     ft_exit(data);
 	return (0);
 }
