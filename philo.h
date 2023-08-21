@@ -6,7 +6,7 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:25:58 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/09 00:40:33 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/08/22 01:11:01 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,6 @@ int		thread_init(t_data *data);
 void print_log(char *str, t_philo *philo);
 long long	current_time();
 
-/****	Actions	****/
-int	die(int id, t_data *data);
-int	take_fork(int id, t_data *data);
 void	eating(t_philo *philo);
-int	thinking(int id, t_data *data);
-void	sleeping(t_philo *philo);
 
 # endif
