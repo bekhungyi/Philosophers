@@ -6,61 +6,37 @@
 /*   By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 13:27:09 by bhung-yi          #+#    #+#             */
-/*   Updated: 2023/07/08 15:22:39 by bhung-yi         ###   ########.fr       */
+/*   Updated: 2023/08/31 22:15:02 by bhung-yi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./philo.h"
+#include "includes/philo.h"
 
-void	ft_exit(t_data *data)
+int	just_one_philo(t_vault *vault)
 {
-	int	i;
+	if (pthread_mutex_init(&vault->output, NULL) != 0)
+		return (0);
+	vault->time = get_time();
+	philo_print(vault, 0, "has taken a fork");
+	philo_wait(vault->input.time_to_die);
+	philo_print(vault, 0, "died");
+	pthread_mutex_destroy(&vault->output);
+	philo_free(vault);
+	return (1);
+}
 
-	i = 0;
-	while (i < data->nb_of_philo)
+int	main(int ac, char **argv)
+{
+	t_vault	vault;
+
+	if (!init_input(ac, argv, &vault))
+		return (0);
+	if (!init_p_f(&vault))
+		return (destroy_and_free(&vault));
+	if (vault.input.n_philos == 1)
 	{
-		pthread_mutex_destroy(&data->fork[i]);
-		pthread_mutex_destroy(&data->philo[i].lock);
-        i++;
+		return (just_one_philo(&vault));
 	}
-	pthread_mutex_destroy(&data->write);
-	pthread_mutex_destroy(&data->lock);
-    free(data->fork);
-    free(data->philo);
-    free(data->tid);
-}
-
-int	one_philo(t_data *data)
-{
-    t_philo *philo;
-
-    philo = &data->philo[0];
-    pthread_mutex_lock(&data->fork[0]);
-    print_log("has taken a fork", philo);
-	usleep(data->time_to_die * 1000);
-    print_log("died", philo);
-    ft_exit(data);
-	return (0);
-}
-
-int	main(int ac, char **av)
-{
-	t_data		data;
-	
-	if (ac != 5 && ac != 6)
-    {
-        printf("Invalid number of arguments.");
-        return(1);
-    }
-	if (data_init(ac, av, &data))
-        return (1);
-    if (data.nb_of_philo == 1)
-        return (one_philo(&data));
-    printf("");
-    if (thread_init(&data))
-    {
-        return (1);
-    }
-    ft_exit(&data);
-    return (0);
+	init_threads(&vault);
+	return (destroy_and_free(&vault));
 }

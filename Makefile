@@ -5,34 +5,46 @@
 #                                                     +:+ +:+         +:+      #
 #    By: bhung-yi <bhung-yi@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/06/10 13:23:41 by bhung-yi          #+#    #+#              #
-#    Updated: 2023/07/08 23:50:40 by bhung-yi         ###   ########.fr        #
+#    Created: 2023/04/17 16:32:57 by bhung-yi          #+#    #+#              #
+#    Updated: 2023/09/01 19:28:01 by bhung-yi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		= philo
+
+AR_NAME		= philo.a
+
+SRCS		= philo.c \
+				src/actions.c \
+				src/init_input.c \
+				src/init_p_f.c \
+				src/init_threads.c \
+				src/utils.c \
+				src/process.c \
+
+OBJS		= $(SRCS:%.c=%.o)
+
 CC			= gcc
-FLAGS		= -Wall -Werror -Wextra
-RM			= /bin/rm -f
 
-SRCS	= 	./srcs/utils.c \
-			./srcs/actions.c \
-			./srcs/init.c \
-			./srcs/threads.c \
+AR			= ar rc
 
-%.o: %.c
-	$(CC) -Wall -Wextra -Werror -c $< -o $@
+FLAGS		= -Wall -Werror -Wextra 
+LFLAGS		= -fsanitize=thread -lpthread -g3 -pthread
 
+
+$(NAME): $(OBJS)
+	$(CC) $(FLAGS) $(LFLAGS) $(OBJS) -o $(NAME)
+ 
 all: $(NAME)
 
-$(NAME):
-	$(CC) $(CFLAGS) philo.c $(SRCS) -o $(NAME) -fsanitize=thread -lpthread -g3
-
-re: fclean all
-
 clean:
-	$(RM) -r *.o
+	rm -f $(AR_NAME)
+	rm -f $(OBJS)
 
 fclean: clean
-	$(RM) $(NAME)
+	rm -f $(NAME)
 
+re: fclean all
+	touch $(NAME)
+
+.PHONY: all clean fclean re
